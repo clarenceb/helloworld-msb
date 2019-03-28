@@ -1,0 +1,9 @@
+FROM golang:1.8 as builder
+WORKDIR /src/
+COPY hello-world.go .
+RUN go build -o app .
+
+FROM alpine
+WORKDIR /root/
+COPY --from=builder /src/app .
+CMD ["./app"]
